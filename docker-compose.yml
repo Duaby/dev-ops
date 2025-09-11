@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin123
+      - INFLUXDB_BUCKET=mybucket
+      - INFLUXDB_ORG=myorg
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+      - POSTGRES_DB=mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME="TestCluster"
+      - CASSANDRA_NUM_TOKENS=256
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+
+volumes:
+  influxdb_data:
+  postgres_data:
+  cassandra_data:
