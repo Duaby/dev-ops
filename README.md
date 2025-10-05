@@ -78,7 +78,7 @@ db-stack/
 ```powershell
 cd C:\Users\USER\db-stack
 docker-compose up -d
- docker ps
+docker ps
 
 ##Expected containers: influxdb, postgres, cassandra, jupyter
 
