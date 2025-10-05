@@ -1,4 +1,4 @@
-# 🗃 Multi-Database Docker Stack with Jupyter Notebook
+# 🗃 Multi-Database Docker Stack 
 
 ## Overview
 This project sets up a **multi-database environment** using Docker Compose, including:
