@@ -1,39 +1,90 @@
-# 📄 Diagram Overview: `docker-compose.yml` Visualization
+# 🗃 Multi-Database Docker Stack with Jupyter Notebook
 
-This document explains the structure and components of our application stack as defined in the `docker-compose.yml` file. The diagram provides a clear overview of the services, their configurations, and how they interact.
+## Overview
+This project sets up a **multi-database environment** using Docker Compose, including:
+
+- **InfluxDB** (Time-series database)
+- **PostgreSQL** (Relational database)
+- **Cassandra** (NoSQL database)
+- **Jupyter Notebook** (Python/Anaconda environment for querying databases)
+
+The goal is to create a **development and learning stack** where all services run in containers and can interact through a Docker network.
 
 ---
 
-## ⚙️ Core Services
+## 🐳 What is Docker?
 
-The application is composed of three main services, all defined and orchestrated by Docker Compose:
+Docker is a platform for **containerization**, allowing developers to package applications and their dependencies into **lightweight, portable containers** that run consistently across different environments.
 
-### **`influxdb`**
+### Key Concepts:
+
+- **Containers**: Standalone, executable packages containing everything an application needs (code, runtime, libraries, environment variables).  
+- **Images**: Read-only templates used to create containers.  
+- **Docker Compose**: Tool for defining and running multi-container Docker applications using a YAML file.  
+
+**Benefits**:  
+- Consistency across environments  
+- Easy isolation of services  
+- Simple deployment and scaling  
+
+---
+
+## ⚙️ Project Stack
+
+### 1. **InfluxDB**
 - **Image**: `influxdb:2.7`  
-- **Ports**: Exposes `8086` for the InfluxDB Web UI and API.  
-- **Configuration**: Uses environment variables to configure the admin user, password, bucket, and organization.  
-- **Persistence**: Mounts the **`influxdb_data`** volume to `/var/lib/influxdb2` to store time-series data.  
+- **Ports**: `8086`  
+- **Environment**: Admin user/password, bucket, org  
+- **Volume**: `influxdb_data:/var/lib/influxdb2`  
 
-### **`postgres`**
+### 2. **PostgreSQL**
 - **Image**: `postgres:15`  
-- **Ports**: Exposes `5432`, the standard PostgreSQL port.  
-- **Configuration**: Uses environment variables to set the database name, user, and password.  
-- **Persistence**: Mounts the **`postgres_data`** volume to `/var/lib/postgresql/data` to persist database files.  
+- **Ports**: `5432`  
+- **Environment**: DB name, user, password  
+- **Volume**: `postgres_data:/var/lib/postgresql/data`  
 
-### **`cassandra`**
+### 3. **Cassandra**
 - **Image**: `cassandra:4.1`  
-- **Ports**: Exposes `9042`, the standard port for Cassandra’s native protocol.  
-- **Configuration**: Environment variables are used to configure the cluster name and token settings.  
-- **Persistence**: Mounts the **`cassandra_data`** volume to `/var/lib/cassandra` to ensure durable storage.  
+- **Ports**: `9042`  
+- **Environment**: Cluster name, token count  
+- **Volume**: `cassandra_data:/var/lib/cassandra`  
+
+### 4. **Jupyter Notebook**
+- **Image**: `jupyter/minimal-notebook:latest`  
+- **Ports**: `8888`  
+- **Environment**: `JUPYTER_TOKEN` for secure login
 
 ---
 
 ## 🔗 Service Interactions
 
-This setup represents a typical multi-database environment for development or learning:  
-
 - **InfluxDB** handles **time-series data** (metrics, logs, IoT signals).  
-- **PostgreSQL** provides a **relational database** for structured data.  
-- **Cassandra** stores **scalable NoSQL datasets** for high availability and fast reads/writes.  
+- **PostgreSQL** stores structured relational data.  
+- **Cassandra** stores scalable NoSQL datasets for high availability.  
+- **Jupyter Notebook** can connect to all three databases using Python, allowing data analysis, visualization, and queries in one environment.  
 
-Each service runs independently in its own container but can communicate with others using Docker’s internal network. This design allows the application stack to simulate real-world scenarios where multiple database systems coexist and serve different data needs.
+---
+db-stack/
+│
+├─ docker-compose.yml
+├─ README.md
+
+
+---
+
+##  Getting Started
+
+### 1. Start the Docker Stack
+```powershell
+cd C:\Users\USER\db-stack
+docker-compose up -d
+ docker ps
+
+##Expected containers: influxdb, postgres, cassandra, jupyter
+
+3. Access Jupyter Notebook
+
+URL: http://localhost:8888
+
+Token: mytoken123 (as defined in docker-compose.yml) 📂 Directory Structure
+
