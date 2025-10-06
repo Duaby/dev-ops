@@ -1,90 +1,103 @@
-# 🗃 Multi-Database Docker Stack 
+# 🚀 DevOps & Multi-Database Stack with Docker
 
-## Overview
-This project sets up a **multi-database environment** using Docker Compose, including:
+This project sets up and runs a **multi-database environment** using Docker containers.  
+The stack includes:
+- 🟠 **InfluxDB** — Time series database  
+- 🟡 **PostgreSQL** — Relational database  
+- 🟣 **Apache Cassandra** — NoSQL distributed database
 
-- **InfluxDB** (Time-series database)
-- **PostgreSQL** (Relational database)
-- **Cassandra** (NoSQL database)
-- **Jupyter Notebook** (Python/Anaconda environment for querying databases)
-
-The goal is to create a **development and learning stack** where all services run in containers and can interact through a Docker network.
+All services run inside **Docker containers** and are orchestrated using **Docker Compose**.
 
 ---
 
-## 🐳 What is Docker?
+## 🧠 What is DevOps?
 
-Docker is a platform for **containerization**, allowing developers to package applications and their dependencies into **lightweight, portable containers** that run consistently across different environments.
+**DevOps** is a combination of **“Development”** and **“Operations.”**  
+It’s a set of cultural philosophies, practices, and tools that aims to:
+- **Bridge the gap** between software development and IT operations.  
+- **Automate** and **integrate** the processes of building, testing, and releasing software.  
+- Enable **faster development cycles**, **high-quality software**, and **continuous delivery**.
 
-### Key Concepts:
+### ✨ Key DevOps Principles
+- **Collaboration** between dev and ops teams.  
+- **Continuous Integration / Continuous Deployment (CI/CD)**.  
+- **Automation** of builds, tests, and deployments.  
+- **Monitoring & Feedback** to improve systems quickly.  
 
-- **Containers**: Standalone, executable packages containing everything an application needs (code, runtime, libraries, environment variables).  
-- **Images**: Read-only templates used to create containers.  
-- **Docker Compose**: Tool for defining and running multi-container Docker applications using a YAML file.  
-
-**Benefits**:  
-- Consistency across environments  
-- Easy isolation of services  
-- Simple deployment and scaling  
-
----
-
-## ⚙️ Project Stack
-
-### 1. **InfluxDB**
-- **Image**: `influxdb:2.7`  
-- **Ports**: `8086`  
-- **Environment**: Admin user/password, bucket, org  
-- **Volume**: `influxdb_data:/var/lib/influxdb2`  
-
-### 2. **PostgreSQL**
-- **Image**: `postgres:15`  
-- **Ports**: `5432`  
-- **Environment**: DB name, user, password  
-- **Volume**: `postgres_data:/var/lib/postgresql/data`  
-
-### 3. **Cassandra**
-- **Image**: `cassandra:4.1`  
-- **Ports**: `9042`  
-- **Environment**: Cluster name, token count  
-- **Volume**: `cassandra_data:/var/lib/cassandra`  
-
-### 4. **Jupyter Notebook**
-- **Image**: `jupyter/minimal-notebook:latest`  
-- **Ports**: `8888`  
-- **Environment**: `JUPYTER_TOKEN` for secure login
+Using **Docker** and **Docker Compose** is a core part of many DevOps workflows.  
+It helps create **consistent, reproducible environments** from development to production, which is essential for reliable software delivery.
 
 ---
 
-## 🔗 Service Interactions
+## 🧰 What is Docker?
 
-- **InfluxDB** handles **time-series data** (metrics, logs, IoT signals).  
-- **PostgreSQL** stores structured relational data.  
-- **Cassandra** stores scalable NoSQL datasets for high availability.  
-- **Jupyter Notebook** can connect to all three databases using Python, allowing data analysis, visualization, and queries in one environment.  
+**Docker** is a platform that allows developers to **package and run applications** inside **containers**.  
+These containers include everything needed to run the software—code, runtime, libraries, and settings—making it easy to move applications between environments without issues.
 
----
-db-stack/
-│
-├─ docker-compose.yml
-├─ README.md
-
+### ⚙️ How Docker Works
+- You write a **Dockerfile** describing your environment.  
+- You build a **Docker image** from that file.  
+- You run **containers** from the image, each acting as a lightweight, isolated environment.  
+- **Docker Compose** lets you define and run **multiple containers** together in a single configuration file.
 
 ---
 
-##  Getting Started
+## 🧱 What are Containers?
 
-### 1. Start the Docker Stack
-```powershell
-cd C:\Users\USER\db-stack
-docker-compose up -d
-docker ps
+Containers are like **lightweight virtual machines**, but:
+- They **share the host’s OS kernel**, making them efficient and fast.  
+- They **start in seconds** and use fewer resources.  
+- They’re **portable** — the same container runs the same way anywhere.  
+- Each service (e.g., PostgreSQL or InfluxDB) runs in **its own container** but can communicate with others over a shared network.
 
-##Expected containers: influxdb, postgres, cassandra, jupyter
+---
 
-3. Access Jupyter Notebook
+## 📄 Docker Compose Setup
 
-URL: http://localhost:8888
+Below is the `docker-compose.yml` file used to set up the databases:
 
-Token: mytoken123 (as defined in docker-compose.yml) 📂 Directory Structure
+```yaml
+version: '3.8'
 
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin123
+      - DOCKER_INFLUXDB_INIT_ORG=myorg
+      - DOCKER_INFLUXDB_INIT_BUCKET=mybucket
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=TestCluster
+      - CASSANDRA_NUM_TOKENS=256
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+
+volumes:
+  influxdb_data:
+  postgres_data:
+  cassandra_data:
