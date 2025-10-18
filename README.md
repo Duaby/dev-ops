@@ -1,113 +1,139 @@
-# 🧰 DevOps Stack Setup with Docker 🐳
+DevOps Stack Setup with Docker
 
-This project demonstrates how to set up and run a basic DevOps stack using **Docker** and **Docker Compose**, including multiple services (application + databases) working together in isolated containers.
+This project shows you how to set up a basic DevOps stack. You use Docker and Docker Compose. The stack includes multiple services. They run in isolated containers.
 
----
+What is Ops?
 
-## 🧭 1. What is Ops?
+Ops means the tasks for running and maintaining software after development. Ops includes deploying applications to servers. It includes managing infrastructure and networks. It includes monitoring performance. It includes ensuring security, scalability, and availability. It includes handling updates and incident response.
 
-**Ops** (short for **Operations**) refers to the set of tasks, responsibilities, and processes involved in **running, managing, and maintaining software systems** after development.  
-Typical Ops responsibilities include:
+What is DevOps?
 
-- Deploying applications to servers or cloud environments  
-- Managing infrastructure and networks  
-- Monitoring system performance  
-- Ensuring security, scalability, and availability  
-- Handling updates, patches, and incident response  
+DevOps brings development and operations teams together. It helps them collaborate. It automates processes. It delivers software faster. Key principles include automation of tasks. It includes continuous integration and deployment. It includes infrastructure as code. It includes collaboration between teams. It includes monitoring and feedback loops.
 
----
+What is Docker?
 
-## 🚀 2. What is DevOps?
+Docker packages applications and dependencies into containers. Containers run consistently across environments. This includes development, staging, and production.
 
-**DevOps** is a cultural and technical movement that brings together **Development (Dev)** and **Operations (Ops)** teams to **collaborate more efficiently**, automate processes, and deliver software faster and more reliably.
+How Docker Works
 
-Key DevOps principles include:
+Dockerfile builds an image. Image is a snapshot of an environment. Container is a running instance of an image. Docker Engine manages images, containers, networking, and volumes. You define environments as code. You start them with one command.
 
-- **Automation** of repetitive tasks (e.g., testing, deployment)  
-- **Continuous Integration / Continuous Deployment (CI/CD)**  
-- **Infrastructure as Code** (e.g., Docker, Terraform)  
-- **Collaboration** between development and operations teams  
-- **Monitoring and feedback loops**
+What are Containers?
 
----
+Container is a lightweight, isolated environment. It runs an application with libraries, tools, and runtime. Container holds what it needs. It runs anywhere.
 
-## 🐳 3. What is Docker?
+Project Overview
 
-**Docker** is a platform that allows you to **package applications and their dependencies into containers**, ensuring they run consistently across different environments (development, staging, production).
+You use Docker Compose to orchestrate services. Stack includes time-series database, relational database, and NoSQL database. Services run in separate containers. They communicate through Docker network.
 
-### 🧠 How Docker Works
+Services Explained
 
-- **Dockerfile** → Instructions for building an image  
-- **Image** → A lightweight, immutable snapshot of an environment (code + dependencies)  
-- **Container** → A running instance of an image (isolated, portable environment)  
-- **Docker Engine** → Manages images, containers, networking, and volumes  
+influxdb (Time-Series Database)
 
-With Docker, you no longer need to manually set up environments on each machine — everything is defined as code and can be started with a single command.
+Image: influxdb:2.7
+Port: 8086
+Purpose: Stores time-series data. Use it for metrics, logs, and analytics.
+Persistence: Uses influxdb_data volume.
 
----
+postgres (Relational Database)
 
-## 📦 4. What are Containers?
+Image: postgres:15
+Port: 5432
+Purpose: Stores structured data. Use it for accounts, transactions, and metadata.
+Persistence: Uses postgres_data volume.
 
-A **container** is a lightweight, isolated, and portable environment that runs an application along with everything it needs — libraries, system tools, runtime, etc.  
+cassandra (NoSQL Database)
 
-Think of containers like shipping containers:
-> Each one holds everything it needs and can run anywhere, regardless of the host system.
+Image: cassandra:4.1
+Port: 9042
+Purpose: Handles high-volume data. Use it for fast reads and writes.
+Persistence: Uses cassandra_data volume.
 
----
+Running the Stack
 
-## 📝 5. Project Overview
+Prerequisites
+Install Docker.
+Install Docker Compose.
 
-We use **Docker Compose** to orchestrate multiple services together.  
-Our stack includes:
+Step 1: Clone the Repository
+Run this command.
+git clone https://github.com/Duaby/dev-ops.git
+cd dev-ops
 
-1. **Application Service (`infloob`)**
-2. **Relational Database (`postgres`)**
-3. **NoSQL Database (`cassandra`)**
+Step 2: Start the Services
+Run this command.
+docker-compose up -d
+Command pulls images. It creates containers. It sets up volumes.
 
-All services run in separate containers but communicate through Docker's internal network.
+Step 3: Wait for Services to Initialize
+InfluxDB takes 1-2 minutes.
+PostgreSQL takes 30 seconds.
+Cassandra takes 1-2 minutes.
+Check status with this command.
+docker-compose ps
 
----
+Step 4: Access the Services
+Access InfluxDB at http://localhost:8086. Use admin/admin123.
+Connect to PostgreSQL on port 5432. Use postgres/postgres123/mydb.
+Connect to Cassandra on port 9042.
 
-## 🧱 6. Services Explained
+Step 5: Verify Functionality
+Log in to InfluxDB UI. Create bucket or query data.
+Run SELECT version(); in PostgreSQL.
+Run DESCRIBE CLUSTER; in Cassandra.
 
-### 🌐 **1. infloob (Main Application)**
+Stopping the Stack
 
-- **Image**: `infloob/infloob:2.7`  
-- **Port**: `8080`  
-- **Purpose**: Runs the core application. It connects to PostgreSQL and Cassandra to handle data storage and retrieval.  
-- **Persistence**: Data is stored in a Docker volume (`infloob_data`).
+Stop services without removing containers.
+docker-compose stop
 
----
+Stop and remove containers, networks, and volumes.
+docker-compose down
 
-### 🛢 **2. postgres (Relational Database)**
+Remove volumes.
+docker-compose down -v
 
-- **Image**: `postgres:15`  
-- **Port**: `5432`  
-- **Purpose**: Stores structured data (e.g., user accounts, transactions, metadata).  
-- **Persistence**: Uses the `postgres_data` volume to keep database files even if the container restarts.
+Troubleshooting
 
----
+Common Issues
+Check ports 8086, 5432, 9042 are free.
+Run Docker with sudo if needed.
+Wait for pulls on slow connections.
+Remove volumes if corrupted.
 
-### 🌿 **3. cassandra (NoSQL Database)**
+Logs
+View logs for influxdb.
+docker-compose logs influxdb
+View logs for postgres.
+docker-compose logs postgres
+View logs for cassandra.
+docker-compose logs cassandra
+View all logs.
+docker-compose logs
 
-- **Image**: `cassandra:4.1`  
-- **Port**: `9042`  
-- **Purpose**: Handles high-volume or unstructured data efficiently. Useful for fast reads/writes and scalable workloads.  
-- **Persistence**: Uses the `cassandra_data` volume.
+Reset Everything
+Run this to reset.
+docker-compose down -v --remove-orphans
+docker-compose up -d
 
----
+Usage Examples
 
-## ⚙️ 7. Running the Stack
+InfluxDB
+Write data with CLI or API.
+Query data with Flux in UI or API.
 
-Follow these steps to set up and run the stack:
+PostgreSQL
+Connect with psql -h localhost -p 5432 -U postgres -d mydb
+Create table with CREATE TABLE test (id SERIAL PRIMARY KEY, name VARCHAR(50));
 
-### ✅ Prerequisites
-- [Docker](https://docs.docker.com/get-docker/) installed  
-- [Docker Compose](https://docs.docker.com/compose/) installed  
+Cassandra
+Connect with cqlsh localhost 9042
+Create keyspace with CREATE KEYSPACE test WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
----
+Contributing
 
-### 📥 Step 1: Clone the Repository
-```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+Submit issues or pull requests.
+
+License
+
+Project is open-source. See LICENSE.
