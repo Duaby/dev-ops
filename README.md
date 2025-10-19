@@ -82,8 +82,14 @@ You should see InfluxDB, PostgreSQL, and Cassandra.
 ### Step 5: Access the Services
 
 * InfluxDB: open [http://localhost:8086](http://localhost:8086) (user: admin / password: admin123)
+<img width="1581" height="881" alt="Screenshot 2025-10-19 182034" src="https://github.com/user-attachments/assets/61e4ca71-2b27-412f-ad03-934da5f5b4aa" />
+
 * PostgreSQL: connect on port 5432 (user: postgres / password: postgres123 / db: mydb)
+
 * Cassandra: connect on port 9042
+
+* Juypter
+<img width="1581" height="893" alt="Screenshot 2025-10-19 182044" src="https://github.com/user-attachments/assets/f0bc50e5-3573-4d90-a4a0-26d8438a4df1" />
 
 ---
 
