@@ -26,6 +26,7 @@ The stack includes three main services:
 Each service runs in its own container. All containers connect through a shared Docker network. Data is stored in persistent volumes so it remains available after restarts.
 
 ---
+<img width="1536" height="1024" alt="uml 2" src="https://github.com/user-attachments/assets/7425fd8f-a2ce-4a34-b35d-44d4ae7ea248" />
 
 ### Service Details
 
