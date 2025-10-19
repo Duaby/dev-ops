@@ -44,8 +44,10 @@ Persistent volumes store data safely and allow recovery after shutdown.
 ### Step 1: Install Docker Desktop
 
 Download and install Docker Desktop from the official site. Open it and confirm it runs correctly.
+<img width="1582" height="896" alt="Screenshot 2025-10-19 181010" src="https://github.com/user-attachments/assets/86eafe14-72eb-4d68-a680-6592407d39e6" />
 
 ### Step 2: Clone the Repository
+<img width="1577" height="882" alt="Screenshot 2025-10-19 181115" src="https://github.com/user-attachments/assets/f2d3df2c-a761-431f-82ac-e10525def6b2" />
 
 Open a terminal and run:
 
@@ -57,6 +59,7 @@ cd dev-ops
 ### Step 3: Start the Services
 
 Pull images and start containers:
+<img width="1575" height="876" alt="Screenshot 2025-10-19 181413" src="https://github.com/user-attachments/assets/0cd4b144-1e9c-4020-8771-10fa1772119e" />
 
 ```
 docker compose up -d
@@ -65,6 +68,7 @@ docker compose up -d
 This command downloads images, creates containers, and sets up volumes.
 
 ### Step 4: Check Running Containers
+<img width="1577" height="840" alt="Screenshot 2025-10-19 181722" src="https://github.com/user-attachments/assets/0b0822e8-aaf9-497c-806a-88c9794c5de7" />
 
 List active containers:
 
@@ -73,6 +77,7 @@ docker ps
 ```
 
 You should see InfluxDB, PostgreSQL, and Cassandra.
+<img width="1916" height="980" alt="Screenshot 2025-10-19 181615" src="https://github.com/user-attachments/assets/e52dd0dc-0f26-4fa3-992a-d368942a0a70" />
 
 ### Step 5: Access the Services
 
