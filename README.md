@@ -15,6 +15,7 @@ This project uses Docker Compose to automate container creation, networking, and
 ---
 
 ## System Architecture Overview
+<img width="1214" height="1069" alt="Fruits (1)" src="https://github.com/user-attachments/assets/64a2c5e1-5661-426e-8702-6cd074ba4c94" />
 
 The stack includes three main services:
 
