@@ -1,8 +1,8 @@
-Sure. Here’s your **README.md** content ready to paste directly into your GitHub repository:
+
 
 ---
 
-# DevOps Stack Setup with Docker
+# DevOps with Docker
 
 This project helps you set up a basic DevOps stack using Docker and Docker Compose. The stack runs multiple services in isolated containers. Each service has its own role and communicates through a shared Docker network.
 
