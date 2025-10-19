@@ -1,132 +1,244 @@
-DevOps Stack Setup with Docker
+Sure. Here’s your **README.md** content ready to paste directly into your GitHub repository:
 
-This project shows you how to set up a basic DevOps stack. You use Docker and Docker Compose. The stack includes multiple services. They run in isolated containers.
+---
 
-What is Ops?
+# DevOps Stack Setup with Docker
 
-Ops means the tasks for running and maintaining software after development. Ops includes deploying applications to servers. It includes managing infrastructure and networks. It includes monitoring performance. It includes ensuring security, scalability, and availability. It includes handling updates and incident response.
+This project helps you set up a basic DevOps stack using Docker and Docker Compose. The stack runs multiple services in isolated containers. Each service has its own role and communicates through a shared Docker network.
 
-What is DevOps?
+---
 
-DevOps brings development and operations teams together. It helps them collaborate. It automates processes. It delivers software faster. Key principles include automation of tasks. It includes continuous integration and deployment. It includes infrastructure as code. It includes collaboration between teams. It includes monitoring and feedback loops.
+## Purpose
 
-What is Docker?
+This project helps you learn how to build, run, and manage a DevOps environment on your local machine. You use real tools found in production systems. You practice how to start, stop, and connect databases through Docker. You also understand how DevOps integrates with infrastructure automation and software delivery.
 
-Docker packages applications and dependencies into containers. Containers run consistently across environments. This includes development, staging, and production.
+---
 
-How Docker Works
+## What is Ops
 
-Dockerfile builds an image. Image is a snapshot of an environment. Container is a running instance of an image. Docker Engine manages images, containers, networking, and volumes. You define environments as code. You start them with one command.
+Ops means managing software after it is built. It covers deployment, infrastructure setup, monitoring, and incident response.
 
-What are Containers?
+Ops tasks include:
 
-Container is a lightweight, isolated environment. It runs an application with libraries, tools, and runtime. Container holds what it needs. It runs anywhere.
+* Deploying applications to servers
+* Managing network and storage
+* Monitoring logs and performance
+* Handling system updates
+* Ensuring uptime and security
 
-Project Overview
+---
 
-You use Docker Compose to orchestrate services. Stack includes time-series database, relational database, and NoSQL database. Services run in separate containers. They communicate through Docker network.
+## What is DevOps
 
-Services Explained
+DevOps connects development and operations. It promotes collaboration and automation across both sides. The goal is faster delivery and more stable systems.
 
-influxdb (Time-Series Database)
+Core principles:
 
-Image: influxdb:2.7
-Port: 8086
-Purpose: Stores time-series data. Use it for metrics, logs, and analytics.
-Persistence: Uses influxdb_data volume.
+* Automate builds and deployments
+* Use version control for infrastructure
+* Integrate and test continuously
+* Monitor systems and use feedback to improve
+* Break down silos between teams
 
-postgres (Relational Database)
+---
 
-Image: postgres:15
-Port: 5432
-Purpose: Stores structured data. Use it for accounts, transactions, and metadata.
-Persistence: Uses postgres_data volume.
+## What is Docker
 
-cassandra (NoSQL Database)
+Docker packages applications and their dependencies into containers. Containers run the same on any system that supports Docker. This makes setup faster and environments consistent.
 
-Image: cassandra:4.1
-Port: 9042
-Purpose: Handles high-volume data. Use it for fast reads and writes.
-Persistence: Uses cassandra_data volume.
+---
 
-Running the Stack
+## How Docker Works
 
-Prerequisites
-Install Docker.
-Install Docker Compose.
+* **Dockerfile** defines how to build an image
+* **Image** is a template with app code and dependencies
+* **Container** is a running instance of an image
+* **Docker Engine** runs containers and manages networking
+* **Docker Compose** defines and starts multiple containers together
 
-Step 1: Clone the Repository
-Run this command.
-git clone https://github.com/Duaby/dev-ops.git
+---
+
+## What are Containers
+
+A container is an isolated environment that runs an application with all required libraries and tools. Containers are small, fast, and portable. They help prevent conflicts between environments and reduce setup time.
+
+---
+
+## Project Overview
+
+This stack uses Docker Compose to manage three key database services:
+
+1. **InfluxDB** for time-series data
+2. **PostgreSQL** for relational data
+3. **Cassandra** for NoSQL workloads
+
+Each service runs in its own container. They share a Docker network so they can communicate securely. Data is stored in persistent volumes.
+
+---
+
+## Services Explained
+
+### InfluxDB (Time-Series Database)
+
+* Image: `influxdb:2.7`
+* Port: `8086`
+* Use: Store time-series data for metrics and logs
+* Data: Saved in `influxdb_data` volume
+
+### PostgreSQL (Relational Database)
+
+* Image: `postgres:15`
+* Port: `5432`
+* Use: Store structured data like users, transactions, and metadata
+* Data: Saved in `postgres_data` volume
+
+### Cassandra (NoSQL Database)
+
+* Image: `cassandra:4.1`
+* Port: `9042`
+* Use: Handle large-scale data with high read and write speed
+* Data: Saved in `cassandra_data` volume
+
+---
+
+## System Requirements
+
+* Docker 24.0 or newer
+* Docker Compose plugin
+* Minimum 4 GB RAM
+* Stable internet connection for pulling images
+
+---
+
+## Running the Stack
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/Duaby/dev-ops.git  
 cd dev-ops
+```
 
-Step 2: Start the Services
-Run this command.
+### Step 2: Start the Services
+
+```bash
 docker-compose up -d
-Command pulls images. It creates containers. It sets up volumes.
+```
 
-Step 3: Wait for Services to Initialize
-InfluxDB takes 1-2 minutes.
-PostgreSQL takes 30 seconds.
-Cassandra takes 1-2 minutes.
-Check status with this command.
+This command pulls images, creates containers, and sets up volumes.
+
+### Step 3: Wait for Initialization
+
+* InfluxDB: 1–2 minutes
+* PostgreSQL: 30 seconds
+* Cassandra: 1–2 minutes
+
+Check progress:
+
+```bash
 docker-compose ps
+```
 
-Step 4: Access the Services
-Access InfluxDB at http://localhost:8086. Use admin/admin123.
-Connect to PostgreSQL on port 5432. Use postgres/postgres123/mydb.
-Connect to Cassandra on port 9042.
+### Step 4: Access the Services
 
-Step 5: Verify Functionality
-Log in to InfluxDB UI. Create bucket or query data.
-Run SELECT version(); in PostgreSQL.
-Run DESCRIBE CLUSTER; in Cassandra.
+* InfluxDB: [http://localhost:8086](http://localhost:8086) (user: admin / password: admin123)
+* PostgreSQL: Port 5432 (user: postgres / password: postgres123 / db: mydb)
+* Cassandra: Port 9042
 
-Stopping the Stack
+### Step 5: Verify Functionality
 
-Stop services without removing containers.
+* InfluxDB: Log in and create a bucket
+* PostgreSQL: Run `SELECT version();`
+* Cassandra: Run `DESCRIBE CLUSTER;`
+
+---
+
+## Stopping the Stack
+
+Stop containers but keep data.
+
+```bash
 docker-compose stop
+```
 
-Stop and remove containers, networks, and volumes.
+Stop and remove everything.
+
+```bash
 docker-compose down
+```
 
-Remove volumes.
+Remove all volumes.
+
+```bash
 docker-compose down -v
+```
 
-Troubleshooting
+---
 
-Common Issues
-Check ports 8086, 5432, 9042 are free.
-Run Docker with sudo if needed.
-Wait for pulls on slow connections.
-Remove volumes if corrupted.
+## Troubleshooting
 
-Logs
-View logs for influxdb.
+### Common Issues
+
+* Ensure ports 8086, 5432, and 9042 are free
+* Use `sudo` if Docker needs root access
+* Wait for images to download fully
+* Recreate volumes if data corruption occurs
+
+### View Logs
+
+```bash
 docker-compose logs influxdb
-View logs for postgres.
 docker-compose logs postgres
-View logs for cassandra.
 docker-compose logs cassandra
-View all logs.
 docker-compose logs
+```
 
-Reset Everything
-Run this to reset.
+### Reset Everything
+
+```bash
 docker-compose down -v --remove-orphans
 docker-compose up -d
+```
 
-Usage Examples
+---
 
-InfluxDB
-Write data with CLI or API.
-Query data with Flux in UI or API.
+## Usage Examples
 
-PostgreSQL
-Connect with psql -h localhost -p 5432 -U postgres -d mydb
-Create table with CREATE TABLE test (id SERIAL PRIMARY KEY, name VARCHAR(50));
+### InfluxDB
 
-Cassandra
-Connect with cqlsh localhost 9042
-Create keyspace with CREATE KEYSPACE test WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
+Write and query data from the UI or API.
+Example query in UI:
 
+```
+from(bucket: "metrics") |> range(start: -1h)
+```
+
+### PostgreSQL
+
+Connect with psql.
+
+```bash
+psql -h localhost -p 5432 -U postgres -d mydb
+```
+
+Example query:
+
+```sql
+CREATE TABLE test (id SERIAL PRIMARY KEY, name VARCHAR(50));
+```
+
+### Cassandra
+
+Connect with cqlsh.
+
+```bash
+cqlsh localhost 9042
+```
+
+Example command:
+
+```sql
+CREATE KEYSPACE test WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
+```
+
+You can copy and paste this entire section into your `README.md` file. It will display cleanly on GitHub with proper formatting.
