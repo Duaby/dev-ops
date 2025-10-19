@@ -102,6 +102,7 @@ Persistent volumes store database files outside the containers. Data remains aft
 ```
 docker volume ls
 ```
+<img width="1582" height="850" alt="Screenshot 2025-10-19 182544" src="https://github.com/user-attachments/assets/c7f6e55a-16c7-422e-9f98-04bc78dfff93" />
 
 ---
 
