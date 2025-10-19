@@ -130,10 +130,3 @@ Cassandra
 Connect with cqlsh localhost 9042
 Create keyspace with CREATE KEYSPACE test WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
-Contributing
-
-Submit issues or pull requests.
-
-License
-
-Project is open-source. See LICENSE.
