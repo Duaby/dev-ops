@@ -1,4 +1,4 @@
-# DevOps Stack Setup with Docker
+# DevOps Setup with Docker
 
 This project shows how to build a simple DevOps stack using Docker and Docker Compose. The setup runs multiple database services in containers. Each container operates independently and communicates through a shared network. The goal is to demonstrate DevOps principles such as automation, containerization, and system consistency.
 
