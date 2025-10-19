@@ -8,7 +8,7 @@ This project helps you set up a basic DevOps stack using Docker and Docker Compo
 
 ---
 
-## Purpose
+## Purpose of the project 
 
 This project helps you learn how to build, run, and manage a DevOps environment on your local machine. You use real tools found in production systems. You practice how to start, stop, and connect databases through Docker. You also understand how DevOps integrates with infrastructure automation and software delivery.
 
